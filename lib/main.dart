@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
-void main() => runApp(FlashCard());
+void main() => runApp(const FlashCard());
 
 class FlashCard extends StatelessWidget {
   const FlashCard({Key? key}) : super(key: key);
@@ -8,38 +9,12 @@ class FlashCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('FlashCards'),
-          backgroundColor: Colors.indigo,
-        ),
-        body: const SafeArea(
-          child: CardPage(),
+      theme: ThemeData.light().copyWith(
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xFF1A99EE),
         ),
       ),
-    );
-  }
-}
-
-class CardPage extends StatefulWidget {
-  const CardPage({Key? key}) : super(key: key);
-
-  @override
-  State<CardPage> createState() => _CardPageState();
-}
-
-class _CardPageState extends State<CardPage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        ' Lets Get Started',
-        style: TextStyle(
-          fontSize: 25.0,
-          color: Colors.black,
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }
