@@ -2,6 +2,7 @@ import 'package:flash_card/constants.dart';
 import 'package:flash_card/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
+
 class Fcards extends StatefulWidget {
   const Fcards({Key? key}) : super(key: key);
 
@@ -10,6 +11,7 @@ class Fcards extends StatefulWidget {
 }
 
 class _FcardsState extends State<Fcards> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +85,6 @@ void SelectedItem(BuildContext context, item) {
           .push(MaterialPageRoute(builder: (context) => HomePage()));
       break;
     case 1:
-      print("User Logged out");
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => HomePage()),
           (route) => false);

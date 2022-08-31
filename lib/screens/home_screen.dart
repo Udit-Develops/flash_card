@@ -1,7 +1,9 @@
 import 'package:flash_card/constants.dart';
 import 'package:flash_card/screens/f_cards.dart';
+import 'package:flash_card/screens/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_card/custom_widget/mini_card.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -83,7 +85,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return QuizPage();
+                    }),
+                  );
                 },
               ),
               ListTile(
