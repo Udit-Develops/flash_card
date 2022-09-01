@@ -1,7 +1,7 @@
 import 'package:flash_card/constants.dart';
+import 'package:flash_card/custom_widget/bottom_bar.dart';
 import 'package:flash_card/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
 
 class Fcards extends StatefulWidget {
   const Fcards({Key? key}) : super(key: key);
@@ -11,7 +11,6 @@ class Fcards extends StatefulWidget {
 }
 
 class _FcardsState extends State<Fcards> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,17 +61,22 @@ class _FcardsState extends State<Fcards> {
           ],
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(15.0),
-        child: TextField(
-          keyboardType: TextInputType.multiline,
-          maxLines: 50,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Enter your text here',
-            hintStyle: kFCardinitialTStyle,
+      bottomNavigationBar: BottomBar(),
+      body: Column(
+        children: const [
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: 10,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter your text here',
+                hintStyle: kFCardinitialTStyle,
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
