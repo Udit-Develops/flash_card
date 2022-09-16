@@ -1,22 +1,22 @@
-import 'package:flash_card/utilities/constants.dart';
-import 'package:flash_card/custom_widget/bottom_bar.dart';
-import 'package:flash_card/local/card_data_list.dart';
 import 'package:flash_card/local/flash_card_model.dart';
-import 'package:flash_card/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class Fcards extends StatefulWidget {
-  const Fcards({Key? key}) : super(key: key);
+import '../utilities/constants.dart';
+import '../custom_widget/bottom_bar.dart';
+import '../local/card_data_list.dart';
+import 'home_screen.dart';
 
-  @override
-  State<Fcards> createState() => _FcardsState();
-}
-
-class _FcardsState extends State<Fcards> {
+class FlashDataCard extends StatelessWidget {
+  FlashCardModel data;
+  int index;
+  FlashDataCard({Key? key, required this.data, required this.index})
+      : super(key: key);
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    titleController.text = data.title;
+    bodyController.text = data.body;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -28,6 +28,7 @@ class _FcardsState extends State<Fcards> {
                   children: const [
                     Icon(
                       Icons.favorite,
+                      color: Color(0xFF000000),
                     ),
                     SizedBox(width: 7),
                     Text("Favourite"),
@@ -40,6 +41,7 @@ class _FcardsState extends State<Fcards> {
                   children: const [
                     Icon(
                       Icons.delete,
+                      color: Color(0xFF000000),
                     ),
                     SizedBox(width: 7),
                     Text("Delete")
@@ -47,14 +49,13 @@ class _FcardsState extends State<Fcards> {
                 ),
               ),
             ],
-            onSelected: (item) => SelectedItem(context, item),
+            onSelected: (item) => SelectedItem(context, item, index),
           ),
         ],
         title: Row(
           children: [
             Expanded(
-              child: TextField(
-                style: kAppBarTStyle,
+              child: TextFormField(
                 controller: titleController,
                 maxLines: 2,
                 decoration: const InputDecoration(
@@ -85,7 +86,7 @@ class _FcardsState extends State<Fcards> {
       bottomNavigationBar: BottomBar(),
       body: Padding(
         padding: EdgeInsets.all(15.0),
-        child: TextField(
+        child: TextFormField(
           controller: bodyController,
           keyboardType: TextInputType.multiline,
           maxLines: 55,
@@ -116,18 +117,17 @@ class _FcardsState extends State<Fcards> {
   }
 }
 
-void SelectedItem(BuildContext context, item) {
+void SelectedItem(BuildContext context, item, int index) {
   switch (item) {
     case 0:
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => HomePage()));
       break;
     case 1:
+      dataList.removeAt(index);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => HomePage()),
           (route) => false);
       break;
   }
 }
-
-//TODO: Work on bottomBar Functionality

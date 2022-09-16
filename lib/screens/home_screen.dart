@@ -1,9 +1,11 @@
-import 'package:flash_card/constants.dart';
+import 'package:flash_card/main.dart';
+import 'package:flash_card/utilities/constants.dart';
+import 'package:flash_card/local/card_data_list.dart';
 import 'package:flash_card/screens/f_cards.dart';
+import 'package:flash_card/screens/flash_data_card.dart';
 import 'package:flash_card/screens/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_card/custom_widget/mini_card.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,155 +23,194 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors.white.withOpacity(
-              0.95), //This will change the drawer background to blue.
-          //other styles
+          canvasColor: Colors.white.withOpacity(0.95),
         ),
-        child: Drawer(
-          child: ListView(
-            padding: const EdgeInsets.all(0.0),
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                    color: const Color(0xFF1A99EE).withOpacity(0.8)),
-                child: const Text(
-                  'Flashcards',
-                  style: TextStyle(fontSize: 25.0),
-                ),
-              ),
-              ListTile(
-                title: RichText(
-                  text: const TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.home,
-                          size: 25,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      TextSpan(
-                          text: " Home",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 20.0)),
-                    ],
+        child: Theme(
+          data: Theme.of(context),
+          child: Drawer(
+            child: ListView(
+              padding: const EdgeInsets.all(0.0),
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                      color: const Color(0xFF1A99EE).withOpacity(0.8)),
+                  child: const Text(
+                    'Flashcards',
+                    style: TextStyle(fontSize: 25.0),
                   ),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomePage();
-                      },
+                ListTile(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.home,
+                            size: 25,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                            text: " Home",
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
+                      ],
                     ),
-                  );
-                },
-              ),
-              ListTile(
-                title: RichText(
-                  text: const TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.quiz_rounded,
-                          size: 25,
-                          color: Colors.black54,
-                        ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomePage();
+                        },
                       ),
-                      TextSpan(
-                          text: " Quiz",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 20.0)),
-                    ],
+                    );
+                  },
+                ),
+                ListTile(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.quiz_rounded,
+                            size: 25,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                            text: " Quiz",
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return QuizPage();
+                      }),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.favorite,
+                            size: 25.0,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                            text: " Favorites",
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                const SizedBox(
+                  height: 20.0,
+                  width: 180.0,
+                  child: Divider(
+                    indent: 10.0,
+                    endIndent: 10.0,
+                    thickness: 1.50,
+                    color: Color(0xFF9C99B2),
                   ),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return QuizPage();
-                    }),
-                  );
-                },
-              ),
-              ListTile(
-                title: RichText(
-                  text: const TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.settings,
-                          size: 25,
-                          color: Colors.black54,
+                ListTile(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.dark_mode,
+                            size: 25,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                          text: " Settings",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 20.0)),
-                    ],
+                        TextSpan(
+                            text: ' DarkMode',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
+                      ],
+                    ),
                   ),
+                  onTap: () =>
+                      FlashCard.of(context).changeTheme(ThemeMode.dark),
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              const SizedBox(
-                height: 20.0,
-                width: 180.0,
-                child: Divider(
-                  indent: 10.0,
-                  endIndent: 10.0,
-                  thickness: 1.50,
-                  color: Color(0xFF9C99B2),
-                ),
-              ),
-              ListTile(
-                title: RichText(
-                  text: const TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.favorite,
-                          size: 25.0,
-                          color: Colors.black54,
+                ListTile(
+                  title: RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.light_mode,
+                            size: 25,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                          text: " Favorites",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 20.0)),
-                    ],
+                        TextSpan(
+                            text: ' LightMode',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
+                            )),
+                      ],
+                    ),
                   ),
+                  onTap: () =>
+                      FlashCard.of(context).changeTheme(ThemeMode.light),
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: RichText(
-                  text: const TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.bookmark,
-                          size: 25.0,
-                          color: Colors.black54,
-                        ),
-                      ),
-                      TextSpan(
-                          text: " Bookmarks",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 20.0)),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -193,43 +234,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: MiniCard(
-              title: 'Card 1',
+      body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: dataList.length,
+          itemBuilder: (context, index) {
+            return MiniCard(
+              title: dataList[index].title,
               colour: const Color(0xFFE75466),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return Fcards();
+                      return FlashDataCard(
+                        data: dataList[index],
+                        index: index,
+                      );
                     },
                   ),
                 );
               },
-            ),
-          ),
-          Expanded(
-            child: MiniCard(
-              title: 'Card 2',
-              colour: const Color(0xFF197894),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return Fcards();
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+            );
+          }),
     );
   }
 }
