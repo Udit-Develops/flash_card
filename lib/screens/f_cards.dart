@@ -12,6 +12,8 @@ class Fcards extends StatefulWidget {
   State<Fcards> createState() => _FcardsState();
 }
 
+TextMode currentMode = TextMode.normal;
+
 class _FcardsState extends State<Fcards> {
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
@@ -25,9 +27,12 @@ class _FcardsState extends State<Fcards> {
               PopupMenuItem<int>(
                 value: 0,
                 child: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.favorite,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                     SizedBox(width: 7),
                     Text("Favourite"),
@@ -37,9 +42,12 @@ class _FcardsState extends State<Fcards> {
               PopupMenuItem<int>(
                 value: 1,
                 child: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.delete,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                     SizedBox(width: 7),
                     Text("Delete")
@@ -57,7 +65,7 @@ class _FcardsState extends State<Fcards> {
                 style: kAppBarTStyle,
                 controller: titleController,
                 maxLines: 2,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Card Title',
                   hintStyle: kAppBarTStyle,
@@ -68,17 +76,6 @@ class _FcardsState extends State<Fcards> {
             const SizedBox(
               width: 173.7,
             ),
-            // GestureDetector(
-            //   child: const Icon(Icons.ios_share),
-            //   onTap: () {
-            //     dataList.add(FlashCardModel(
-            //         title: titleController.text, body: bodyController.text));
-            //     Navigator.pushAndRemoveUntil(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => new HomePage()),
-            //         (route) => false);
-            //   },
-            // )
           ],
         ),
       ),
@@ -89,11 +86,13 @@ class _FcardsState extends State<Fcards> {
           controller: bodyController,
           keyboardType: TextInputType.multiline,
           maxLines: 55,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Enter your text here',
-            hintStyle: kFCardinitialTStyle,
+          style: kFCardinitialTStyle.merge(
+            getStyle(currentMode),
           ),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your text here',
+              hintStyle: kFCardinitialTStyle),
         ),
       ),
       floatingActionButton: Theme(
@@ -129,5 +128,3 @@ void SelectedItem(BuildContext context, item) {
       break;
   }
 }
-
-//TODO: Work on bottomBar Functionality

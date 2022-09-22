@@ -8,6 +8,8 @@ const kMinicardTStyle = TextStyle(
 
 const kFCardinitialTStyle = TextStyle(fontSize: 20.0);
 
-const kQuesTStyle = TextStyle(fontSize: 25.0, color: Color(0xFFEEE9E9));
+const kQuesTStyle = TextStyle(fontSize: 20.0, color: Color(0xFFEEE9E9));
 
-const kAnsTStyle = TextStyle(fontSize: 20.0, color: Color(0xFFEEE9E9));
+const kAnsTStyle = TextStyle(
+  fontSize: 20.0,
+);

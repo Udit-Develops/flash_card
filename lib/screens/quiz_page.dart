@@ -1,7 +1,6 @@
+import 'package:flash_card/screens/question_page.dart';
 import 'package:flash_card/utilities/constants.dart';
 import 'package:flutter/material.dart';
-
-import '../quiz_components/mcq.dart';
 import '../quiz_components/quiz_brain.dart';
 
 class QuizPage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _QuizPageState extends State<QuizPage> {
               title: 'Physics',
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MCQ(
+                  return QuesPage(
                     dataList: phyData,
                   );
                 }));
@@ -39,7 +38,7 @@ class _QuizPageState extends State<QuizPage> {
             QuizButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MCQ(
+                  return QuesPage(
                     dataList: chemData,
                   );
                 }));
@@ -50,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
               title: 'Mathematics',
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MCQ(
+                  return QuesPage(
                     dataList: mathData,
                   );
                 }));
@@ -60,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
               title: 'General Knowledge',
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MCQ(
+                  return QuesPage(
                     dataList: gkData,
                   );
                 }));
