@@ -34,10 +34,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 DrawerHeader(
                   decoration: BoxDecoration(
-                      color: const Color(0xFF1A99EE).withOpacity(0.8)),
+                      image: DecorationImage(
+                          image: AssetImage("images/FlashCardDrawer.png"))),
                   child: const Text(
                     'Flashcards',
-                    style: TextStyle(fontSize: 25.0),
+                    style: TextStyle(fontSize: 25.0, color: Colors.white),
                   ),
                 ),
                 ListTile(
