@@ -13,14 +13,16 @@ class QuesPage extends StatefulWidget {
 }
 
 class _QuesPageState extends State<QuesPage> {
+  var correctAnswer;
+  var userAnswer;
   var radioIndex;
   int index = 0;
   List<Icon> scoreKeeper = [];
   int score = 0;
+  String rightAnswer = '';
 
   void nextQuestion() {
     if (index < widget.dataList.length) {
-      print(widget.dataList.length);
       print(index);
       index++;
     }
@@ -29,7 +31,7 @@ class _QuesPageState extends State<QuesPage> {
   bool isFinished() {
     if (index >= widget.dataList.length - 1) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return QuizPage();
+        return const QuizPage();
       }));
       print('quiz is finished');
 
@@ -43,13 +45,32 @@ class _QuesPageState extends State<QuesPage> {
     index = 0;
   }
 
-  void checkAnswer(var userAnswer) {
-    var correctAnswer = widget.dataList[index].answer;
+  void showRightAnswer(userAnswer) {
+    correctAnswer = widget.dataList[index].answer;
     setState(() {
+      if (userAnswer == null) {
+        rightAnswer = 'Please choose an option';
+        print(radioIndex);
+      } else {
+        if (userAnswer != correctAnswer) {
+          rightAnswer = 'Correct Answer: $correctAnswer';
+          radioIndex = '1';
+        } else {
+          checkAnswer(radioIndex);
+        }
+      }
+    });
+  }
+
+  void checkAnswer(userAnswer) {
+    correctAnswer = widget.dataList[index].answer;
+    setState(() {
+      rightAnswer = '';
       if (userAnswer == correctAnswer) {
         scoreKeeper.add(const Icon(Icons.check, color: Colors.green));
         score++;
       } else {
+        // rightAnswer = 'Correct Answer: $correctAnswer';
         scoreKeeper.add(const Icon(Icons.close, color: Colors.red));
       }
       if (isFinished() == true) {
@@ -103,16 +124,15 @@ class _QuesPageState extends State<QuesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Color(0xFF1A99EE),
+      backgroundColor: const Color(0xFF1A99EE),
       body: Center(
         child: Container(
-          constraints: BoxConstraints(maxHeight: 550.0, maxWidth: 550),
+          constraints: const BoxConstraints(maxHeight: 600.0, maxWidth: 570),
           margin: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             color: Theme.of(context).brightness == Brightness.light
-                ? Color(0xFFFFFFFF)
+                ? const Color(0xFFFFFFFF)
                 : Colors.black.withOpacity(0.81),
-            // color: const Color(0xFFFFFFFF),
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
@@ -120,7 +140,7 @@ class _QuesPageState extends State<QuesPage> {
             child: Column(
               children: [
                 Card(
-                  color: Color(0xFF2BADD5),
+                  color: const Color(0xFF2BADD5),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
@@ -189,35 +209,76 @@ class _QuesPageState extends State<QuesPage> {
                     });
                   },
                 ),
-                SizedBox(
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  rightAnswer,
+                  style: const TextStyle(color: Colors.green, fontSize: 15.0),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(
                   height: 15.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.cyan),
-                      textStyle: MaterialStateProperty.all(
-                        const TextStyle(
-                          color: Colors.white,
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.cyan),
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          showRightAnswer(radioIndex);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+                          child: Text(
+                            "Answer",
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      checkAnswer(radioIndex);
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                          left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                      child: Text(
-                        "Next",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.cyan),
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          checkAnswer(radioIndex);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 Row(
                   children: scoreKeeper,
@@ -230,5 +291,3 @@ class _QuesPageState extends State<QuesPage> {
     );
   }
 }
-
-//TODO: Think of a way to show correct answer

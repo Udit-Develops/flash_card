@@ -1,6 +1,5 @@
 import 'package:flash_card/local/flash_card_model.dart';
 import 'package:flutter/material.dart';
-
 import '../utilities/constants.dart';
 import '../custom_widget/bottom_bar.dart';
 import '../local/card_data_list.dart';
@@ -13,10 +12,12 @@ class FlashDataCard extends StatelessWidget {
       : super(key: key);
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
+  Color color = const Color(0xFFE75466);
   @override
   Widget build(BuildContext context) {
     titleController.text = data.title;
     bodyController.text = data.body;
+    color = data.color;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -25,26 +26,30 @@ class FlashDataCard extends StatelessWidget {
               PopupMenuItem<int>(
                 value: 0,
                 child: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.favorite,
-                      color: Color(0xFF000000),
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
-                    SizedBox(width: 7),
-                    Text("Favourite"),
+                    const SizedBox(width: 7),
+                    const Text("Favourite"),
                   ],
                 ),
               ),
               PopupMenuItem<int>(
                 value: 1,
                 child: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.delete,
-                      color: Color(0xFF000000),
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
-                    SizedBox(width: 7),
-                    Text("Delete")
+                    const SizedBox(width: 7),
+                    const Text("Delete")
                   ],
                 ),
               ),
@@ -69,28 +74,17 @@ class FlashDataCard extends StatelessWidget {
             const SizedBox(
               width: 173.7,
             ),
-            // GestureDetector(
-            //   child: const Icon(Icons.ios_share),
-            //   onTap: () {
-            //     dataList.add(FlashCardModel(
-            //         title: titleController.text, body: bodyController.text));
-            //     Navigator.pushAndRemoveUntil(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => new HomePage()),
-            //         (route) => false);
-            //   },
-            // )
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar(),
+      bottomNavigationBar: const BottomBar(),
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: TextFormField(
           controller: bodyController,
           keyboardType: TextInputType.multiline,
           maxLines: 55,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'Enter your text here',
             hintStyle: kFCardinitialTStyle,
@@ -103,14 +97,18 @@ class FlashDataCard extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () {
-            dataList.add(FlashCardModel(
-                title: titleController.text, body: bodyController.text));
+            // dataList.insert(
+            //     index,
+            //     FlashCardModel(
+            //         title: titleController.text,
+            //         body: bodyController.text,
+            //         color: color));
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => new HomePage()),
                 (route) => false);
           },
-          child: Icon(Icons.save),
+          child: const Icon(Icons.save),
         ),
       ),
     );
@@ -121,12 +119,12 @@ void SelectedItem(BuildContext context, item, int index) {
   switch (item) {
     case 0:
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => HomePage()));
+          .push(MaterialPageRoute(builder: (context) => const HomePage()));
       break;
     case 1:
       dataList.removeAt(index);
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
           (route) => false);
       break;
   }

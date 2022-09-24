@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class QuizBrain {
   QuizBrain(
       {required this.question,

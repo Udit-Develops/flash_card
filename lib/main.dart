@@ -31,5 +31,3 @@ class _FlashCardState extends State<FlashCard> {
     });
   }
 }
-
-//TODO: Mark card favourites

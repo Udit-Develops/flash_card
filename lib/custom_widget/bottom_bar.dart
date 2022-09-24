@@ -13,24 +13,17 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
 
-  // final pages = [
-  //   // const Page1(),
-  //   // const Page2(),
-  //   // const Page3(),
-  //   // const Page4(),
-  // ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Color(0xFF1A99EE),
+        canvasColor: const Color(0xFF1A99EE),
       ),
       child: BottomNavigationBar(
         // backgroundColor: Color(0xFF1A99EE),
@@ -124,7 +117,6 @@ const underlineStyle = TextStyle(decoration: TextDecoration.underline);
 TextStyle getStyle(TextMode mode) {
   switch (mode) {
     case TextMode.bold:
-      print("bold");
       return boldStyle;
     case TextMode.italic:
       return italicStyle;

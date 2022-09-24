@@ -1,3 +1,4 @@
+import 'package:flash_card/favourites/favourite_page.dart';
 import 'package:flash_card/main.dart';
 import 'package:flash_card/utilities/constants.dart';
 import 'package:flash_card/local/card_data_list.dart';
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomePage();
+                          return const HomePage();
                         },
                       ),
                     );
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return QuizPage();
+                        return const QuizPage();
                       }),
                     );
                   },
@@ -138,7 +139,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const FavouritePage();
+                      }),
+                    );
                   },
                 ),
                 const SizedBox(
@@ -240,7 +246,7 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) {
             return MiniCard(
               title: dataList[index].title,
-              colour: const Color(0xFFE75466),
+              colour: dataList[index].color,
               onTap: () {
                 Navigator.push(
                   context,
